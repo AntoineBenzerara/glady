@@ -72,10 +72,10 @@ public class CompanyService {
             LOGGER.error("No company found with {} id ", companyId);
             return false;
         }
-        User user = userRepository.findUserByIdAndCompanyId(userId, companyId).orElse(null);
+        User user = userRepository.findUserById(userId).orElse(null);
         if (user == null) {
             //TODO: Handle with exception
-            LOGGER.error("User is either unknow or not part of this company ", companyId);
+            LOGGER.error("User is unknown", companyId);
             return false;
         }
         if (!company.hasEnoughBalance(amount)) {

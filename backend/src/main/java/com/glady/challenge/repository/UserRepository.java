@@ -22,7 +22,4 @@ public class UserRepository {
         return true;
     }
 
-    public Optional<User> findUserByIdAndCompanyId(int userId, int companyId) {
-        return null;
-    }
 }
