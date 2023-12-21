@@ -17,8 +17,4 @@ public class CompanyRepository {
         return true;
     }
 
-    public boolean addToBalance(int companyId, BigDecimal addAmount) {
-        return true;
-    }
-
 }
