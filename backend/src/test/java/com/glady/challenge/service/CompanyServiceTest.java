@@ -4,11 +4,11 @@ import com.glady.challenge.model.benefit.GiftBenefit;
 import com.glady.challenge.model.benefit.MealBenefit;
 import com.glady.challenge.model.company.Company;
 import com.glady.challenge.model.user.User;
-import com.glady.challenge.repository.BenefitRepository;
 import com.glady.challenge.repository.CompanyRepository;
 import com.glady.challenge.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -31,7 +31,8 @@ public class CompanyServiceTest {
     private CompanyRepository companyRepository = mock(CompanyRepository.class);
     private UserRepository userRepository = mock(UserRepository.class);
 
-    private BenefitRepository benefitRepository = mock (BenefitRepository.class);
+    private CompanyService companyService;
+
 
     @BeforeAll
     static void init(){
@@ -47,28 +48,30 @@ public class CompanyServiceTest {
 
     }
 
+    @BeforeEach
+    void reset(){
+        //Reseting Service to manage issue with mockito verify
+        companyService = new CompanyService(companyRepository,userRepository);
+    }
+
     @Test
     void given_a_benefit_with_an_amount_greater_than_company_balance_should_not_emit_a_gift(){
-        CompanyService companyService = new CompanyService(companyRepository,userRepository,benefitRepository);
         Assertions.assertFalse(companyService.distributeGiftBenefit(1,1,new BigDecimal(-1)));
     }
 
     @Test
     void given_an_unknow_company_id_companyService_should_not_emit_a_benefit() {
-        CompanyService companyService = new CompanyService(companyRepository,userRepository,benefitRepository);
         Assertions.assertFalse(companyService.distributeGiftBenefit(1,1,new BigDecimal(100)));
     }
 
     @Test
     void given_an_unknown_user_companyService_should_not_emit_a_benefit(){
-        CompanyService companyService = new CompanyService(companyRepository,userRepository,benefitRepository);
         when(companyRepository.getCompanyById(anyInt())).thenReturn(Optional.of(new Company(1, "gladyTestCompany", new BigDecimal(1000))));
         Assertions.assertFalse(companyService.distributeGiftBenefit(1,1,new BigDecimal(100)));
     }
 
     @Test
     void given_a_benefit_with_an_amount_greater_than_company_balance_should_not_emit_a_benefit(){
-        CompanyService companyService = new CompanyService(companyRepository,userRepository,benefitRepository);
         when(companyRepository.getCompanyById(anyInt())).thenReturn(Optional.of(new Company(1, "gladyTestCompany", new BigDecimal(1000))));
         when(userRepository.findUserByIdAndCompanyId(anyInt(),anyInt())).thenReturn(Optional.of(user));
         Assertions.assertFalse(companyService.distributeGiftBenefit(1,1,new BigDecimal(1001)));
@@ -76,7 +79,6 @@ public class CompanyServiceTest {
 
     @Test
     void given_an_amount_and_a_user_a_company_should_emit_a_benefit(){
-        CompanyService companyService = new CompanyService(companyRepository,userRepository,benefitRepository);
         when(companyRepository.getCompanyById(anyInt())).thenReturn(Optional.of(new Company(1, "gladyTestCompany", new BigDecimal(1000))));
         when(userRepository.findUserByIdAndCompanyId(anyInt(),anyInt())).thenReturn(Optional.of(user));
         when(companyRepository.reduceBalance(anyInt(),any(BigDecimal.class))).thenReturn(false);
@@ -86,7 +88,6 @@ public class CompanyServiceTest {
 
     @Test
     void upon_an_issue_on_balance_update_companyService_should_not_emit_a_gift_benefit(){
-        CompanyService companyService = new CompanyService(companyRepository,userRepository,benefitRepository);
         when(companyRepository.getCompanyById(anyInt())).thenReturn(Optional.of(new Company(1, "gladyTestCompany", new BigDecimal(1000))));
         when(userRepository.findUserByIdAndCompanyId(anyInt(),anyInt())).thenReturn(Optional.of(user));
         when(companyRepository.reduceBalance(anyInt(),any(BigDecimal.class))).thenReturn(false);
@@ -94,7 +95,6 @@ public class CompanyServiceTest {
     }
     @Test
     void given_an_amount_and_a_user_a_company_should_emit_a_gift(){
-        CompanyService companyService = new CompanyService(companyRepository,userRepository,benefitRepository);
         when(companyRepository.getCompanyById(anyInt())).thenReturn(Optional.of(new Company(1, "gladyTestCompany", new BigDecimal(1000))));
         when(userRepository.findUserByIdAndCompanyId(anyInt(),anyInt())).thenReturn(Optional.of(user));
         when(companyRepository.reduceBalance(anyInt(),any(BigDecimal.class))).thenReturn(true);

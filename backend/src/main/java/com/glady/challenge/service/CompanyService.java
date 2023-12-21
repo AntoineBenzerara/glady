@@ -3,7 +3,6 @@ package com.glady.challenge.service;
 import com.glady.challenge.model.benefit.GiftBenefit;
 import com.glady.challenge.model.company.Company;
 import com.glady.challenge.model.user.User;
-import com.glady.challenge.repository.BenefitRepository;
 import com.glady.challenge.repository.CompanyRepository;
 import com.glady.challenge.repository.UserRepository;
 import org.slf4j.Logger;
@@ -22,12 +21,10 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
-    private final BenefitRepository benefitRepository;
 
-    public CompanyService(@Autowired CompanyRepository companyRepository, @Autowired UserRepository userRepository, @Autowired BenefitRepository benefitRepository) {
+    public CompanyService(@Autowired CompanyRepository companyRepository, @Autowired UserRepository userRepository) {
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
-        this.benefitRepository = benefitRepository;
     }
 
     public boolean distributeGiftBenefit(int companyId, int userId, BigDecimal amount){
