@@ -1,6 +1,7 @@
 package com.glady.challenge.service;
 
 import com.glady.challenge.model.benefit.GiftBenefit;
+import com.glady.challenge.model.benefit.MealBenefit;
 import com.glady.challenge.model.company.Company;
 import com.glady.challenge.model.user.User;
 import com.glady.challenge.repository.CompanyRepository;
@@ -28,7 +29,36 @@ public class CompanyService {
     }
 
     public boolean distributeGiftBenefit(int companyId, int userId, BigDecimal amount){
+        if (controlBenefitRequestIsValid(companyId, userId, amount)) {
+            GiftBenefit giftBenefit = new GiftBenefit(amount, LocalDate.now());
+            //TODO: add both update in a transaction to manage rollback upon failure
+            if (companyRepository.reduceBalance(companyId, amount)) {
+                return userRepository.addGiftBenefit(userId, giftBenefit);
+            } else {
+                LOGGER.error("Failure upon reduce balance for company {} on amount {} ", companyId, amount);
+                return false;
+            }
+        }
+        //Request is invalid
+        return false;
+    }
 
+    public boolean distributeMealBenefit(int companyId, int userId, BigDecimal amount) {
+        if (controlBenefitRequestIsValid(companyId, userId, amount)) {
+            MealBenefit mealBenefit = new MealBenefit(amount, LocalDate.now());
+            //TODO: add both update in a transaction to manage rollback upon failure
+            if (companyRepository.reduceBalance(companyId, amount)) {
+                return userRepository.addMealBenefit(userId, mealBenefit);
+            } else {
+                LOGGER.error("Failure upon reduce balance for company {} on amount {} ", companyId, amount);
+                return false;
+            }
+        }
+        //Request is invalid
+        return false;
+    }
+
+    private boolean controlBenefitRequestIsValid(int companyId, int userId, BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             //TODO: Handle with exception
             LOGGER.error("Amount cannot be negative: amount provided {} ", amount);
@@ -42,30 +72,18 @@ public class CompanyService {
             LOGGER.error("No company found with {} id ", companyId);
             return false;
         }
-
         User user = userRepository.findUserByIdAndCompanyId(userId, companyId).orElse(null);
         if (user == null) {
             //TODO: Handle with exception
             LOGGER.error("User is either unknow or not part of this company ", companyId);
             return false;
         }
-
         if (!company.hasEnoughBalance(amount)) {
             LOGGER.error("Company {} does not have enough found. Current balance : {} ", company.getName(), company.getBalance());
             return false;
         }
-
-        GiftBenefit giftBenefit = new GiftBenefit(amount, LocalDate.now());
-        //TODO: add both update in a transaction to manage rollback upon failure
-        if (companyRepository.reduceBalance(companyId, amount)) {
-            return userRepository.addGiftBenefit(userId, giftBenefit);
-        } else {
-            LOGGER.error("Failure upon reduce balance for company {} on amount {} ", companyId, amount);
-            return false;
-        }
+        return true;
     }
-
-
 
 
 }
