@@ -11,8 +11,6 @@ public class Company {
     private String name;
     private BigDecimal balance;
 
-    List<User> userList;
-
     public Company(int id, String name, BigDecimal balance) {
         this.id = id;
         this.name = name;
@@ -47,11 +45,4 @@ public class Company {
         this.id = id;
     }
 
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
 }
