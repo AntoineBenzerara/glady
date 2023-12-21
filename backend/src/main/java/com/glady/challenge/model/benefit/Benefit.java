@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 public abstract class Benefit {
 
-    private User user;
     private BigDecimal amount;
     private LocalDate emittedAt;
 
@@ -27,9 +26,8 @@ public abstract class Benefit {
         this.emittedAt = emittedAt;
     }
 
-    public Benefit(User user, BigDecimal amount, LocalDate emittedAt) {
+    public Benefit(BigDecimal amount, LocalDate emittedAt) {
         //Manage id generation at persistance level
-        this.user = user;
         this.amount = amount;
         this.emittedAt = emittedAt;
     }

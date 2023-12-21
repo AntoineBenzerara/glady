@@ -7,11 +7,13 @@ import java.time.LocalDate;
 
 public class GiftBenefit extends Benefit {
 
-    public GiftBenefit(User user, BigDecimal amount, LocalDate emittedAt) {
-        super(user, amount, emittedAt);
+    public GiftBenefit(BigDecimal amount, LocalDate emittedAt) {
+        super(amount, emittedAt);
     }
 
     public LocalDate expireOn() {
-        return this.getEmittedAt().plusDays(365);
+        // Not 365 days but day before 1 year anniversary to manage odd years
+        // Otherwise code would be getEmittedAt().plusDays(365);
+        return this.getEmittedAt().plusYears(1).minusDays(1);
     }
 }

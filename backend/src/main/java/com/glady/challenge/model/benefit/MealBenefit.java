@@ -9,12 +9,13 @@ import java.time.Year;
 
 public class MealBenefit extends Benefit{
 
-    public MealBenefit(User user, BigDecimal amount, LocalDate emittedAt) {
-        super(user, amount, emittedAt);
+    public MealBenefit(BigDecimal amount, LocalDate emittedAt) {
+        super(amount, emittedAt);
     }
 
     public LocalDate expireOn() {
         int expireOnYear = this.getEmittedAt().plusYears(1).getYear();
-        return LocalDate.of(expireOnYear, Month.FEBRUARY, 28);
+        int lastFebruaryDay = Year.isLeap(expireOnYear) ? 29 : 28;
+        return LocalDate.of(expireOnYear, Month.FEBRUARY, lastFebruaryDay);
     }
 }
