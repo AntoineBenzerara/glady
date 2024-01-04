@@ -1,35 +1,37 @@
 package com.glady.challenge.model.benefit;
 
+
 import com.glady.challenge.model.user.User;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@NoArgsConstructor
 public abstract class Benefit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private BigDecimal amount;
-    private LocalDate emittedAt;
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+    @Column(name = "emited_on_date")
+    private LocalDate emittedOn;
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public LocalDate getEmittedAt() {
-        return emittedAt;
-    }
-
-    public void setEmittedAt(LocalDate emittedAt) {
-        this.emittedAt = emittedAt;
-    }
-
-    public Benefit(BigDecimal amount, LocalDate emittedAt) {
-        //Manage id generation at persistance level
-        this.amount = amount;
-        this.emittedAt = emittedAt;
-    }
+    @ManyToOne
+    private User user;
 
 }

@@ -2,44 +2,28 @@ package com.glady.challenge.model.user;
 
 import com.glady.challenge.model.benefit.GiftBenefit;
 import com.glady.challenge.model.benefit.MealBenefit;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@NoArgsConstructor
 public class User {
-
-    private int id;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToMany
     private List<GiftBenefit> giftBenefits;
-
+    @OneToMany
     private List<MealBenefit> mealBenefits;
 
-    public User(int id, List<GiftBenefit> giftBenefits, List<MealBenefit> mealBenefits) {
-        this.id = id;
-        this.giftBenefits = giftBenefits;
-        this.mealBenefits = mealBenefits;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<GiftBenefit> getGiftBenefits() {
-        return giftBenefits;
-    }
-
-    public void setGiftBenefits(List<GiftBenefit> giftBenefits) {
-        this.giftBenefits = giftBenefits;
-    }
-
-    public List<MealBenefit> getMealBenefits() {
-        return mealBenefits;
-    }
-
-    public void setMealBenefits(List<MealBenefit> mealBenefits) {
-        this.mealBenefits = mealBenefits;
-    }
 }

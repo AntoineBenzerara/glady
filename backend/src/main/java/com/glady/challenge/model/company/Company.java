@@ -1,48 +1,29 @@
 package com.glady.challenge.model.company;
 
-import com.glady.challenge.model.user.User;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@NoArgsConstructor
 public class Company {
-
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private BigDecimal balance;
 
-    public Company(int id, String name, BigDecimal balance) {
-        this.id = id;
-        this.name = name;
-        this.balance = balance;
-    }
-
     public boolean hasEnoughBalance(BigDecimal amount) {
         return this.balance.compareTo(amount) >= 0;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
 }
