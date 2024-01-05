@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class GiftBenefitTest {
 
 
@@ -17,7 +19,7 @@ public class GiftBenefitTest {
         now = now.withYear(2021);
         GiftBenefit giftBenefit = new GiftBenefit();
         giftBenefit.setEmittedOn(now);
-        Assertions.assertTrue(giftBenefit.expireOn().compareTo(now.plusDays(365)) == -1);
+        assertTrue(giftBenefit.expireOn().compareTo(now.plusDays(365)) == -1);
 
     }
 
@@ -27,6 +29,6 @@ public class GiftBenefitTest {
         now = now.withYear(2023);
         GiftBenefit giftBenefit = new GiftBenefit();
         giftBenefit.setEmittedOn(now);
-        Assertions.assertTrue(giftBenefit.expireOn().compareTo(now.plusYears(1)) == -1);
+        assertTrue(giftBenefit.expireOn().compareTo(now.plusYears(1)) == -1);
     }
 }

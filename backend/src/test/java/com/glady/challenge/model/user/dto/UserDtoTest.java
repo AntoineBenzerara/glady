@@ -10,6 +10,8 @@ import org.mockito.Mockito;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class UserDtoTest {
 
     @Test
@@ -22,8 +24,8 @@ public class UserDtoTest {
         user.setMealBenefits(meals);
 
         UserDto userDto = UserDto.ofUser(user);
-        Assertions.assertEquals(user.getId(), userDto.getId());
-        Assertions.assertEquals(user.getMealBenefits(), userDto.getMealBenefits());
-        Assertions.assertEquals(user.getGiftBenefits(), userDto.getGiftBenefits());
+        assertEquals(user.getId(), userDto.getId());
+        assertEquals(user.getMealBenefits(), userDto.getMealBenefits());
+        assertEquals(user.getGiftBenefits(), userDto.getGiftBenefits());
     }
 }

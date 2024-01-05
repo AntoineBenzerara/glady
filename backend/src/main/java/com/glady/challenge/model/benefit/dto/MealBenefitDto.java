@@ -1,7 +1,6 @@
 package com.glady.challenge.model.benefit.dto;
 
 import com.glady.challenge.model.benefit.MealBenefit;
-import com.glady.challenge.model.user.User;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -10,6 +10,8 @@ import org.mockito.Mockito;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class GiftBenefitDtoTest {
 
     @Test
@@ -28,10 +30,10 @@ public class GiftBenefitDtoTest {
 
 
         GiftBenefitDto giftBenefitDto = GiftBenefitDto.ofGiftBenefit(gift);
-        Assertions.assertEquals(gift.getId(), giftBenefitDto.getId());
-        Assertions.assertEquals(gift.getAmount(), giftBenefitDto.getAmount());
-        Assertions.assertEquals(gift.getEmittedOn(), giftBenefitDto.getEmittedOn());
-        Assertions.assertEquals(gift.getUser().getId(), giftBenefitDto.getUserId());
-        Assertions.assertEquals(gift.getCompany().getId(), giftBenefitDto.getCompanyId());
+        assertEquals(gift.getId(), giftBenefitDto.getId());
+        assertEquals(gift.getAmount(), giftBenefitDto.getAmount());
+        assertEquals(gift.getEmittedOn(), giftBenefitDto.getEmittedOn());
+        assertEquals(gift.getUser().getId(), giftBenefitDto.getUserId());
+        assertEquals(gift.getCompany().getId(), giftBenefitDto.getCompanyId());
     }
 }

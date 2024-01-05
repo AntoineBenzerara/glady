@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.Month;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class MealBenefitTest {
     private LocalDate now = LocalDate.now();
 
@@ -16,7 +18,7 @@ public class MealBenefitTest {
         LocalDate endOfFebruary = LocalDate.of(2022, Month.FEBRUARY, 28);
         MealBenefit mealBenefit = new MealBenefit();
         mealBenefit.setEmittedOn(now2021);
-        Assertions.assertTrue(mealBenefit.expireOn().isEqual(endOfFebruary));
+        assertTrue(mealBenefit.expireOn().isEqual(endOfFebruary));
     }
 
     @Test
@@ -28,6 +30,6 @@ public class MealBenefitTest {
         mealBenefit.setEmittedOn(now2023);
         System.out.println(endOfFebruary);
         System.out.println(mealBenefit.expireOn());
-        Assertions.assertTrue(mealBenefit.expireOn().isEqual(endOfFebruary));
+        assertTrue(mealBenefit.expireOn().isEqual(endOfFebruary));
     }
 }

@@ -1,7 +1,6 @@
 package com.glady.challenge.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glady.challenge.model.benefit.GiftBenefit;
 import com.glady.challenge.model.benefit.dto.GiftBenefitDto;
 import com.glady.challenge.model.benefit.dto.MealBenefitDto;
 import com.glady.challenge.service.CompanyService;
@@ -17,9 +16,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.mockito.BDDMockito.*;
+import static org.mockito.BDDMockito.any;
+import static org.mockito.BDDMockito.anyLong;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(GladyController.class)

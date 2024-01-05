@@ -7,7 +7,12 @@ import com.glady.challenge.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 
@@ -57,7 +62,7 @@ public class GladyController {
             BigDecimal balance = userService.getUserBenefitBalance(userId);
             return ResponseEntity.ok(balance);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error on meal benefit creation: " + e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error on meal benefit creation: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
