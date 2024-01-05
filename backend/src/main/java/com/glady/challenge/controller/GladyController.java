@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 
 @RestController
-@RequestMapping("/glady/api/benefits")
+@RequestMapping("/glady/api/")
 public class GladyController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class GladyController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/gift")
+    @PostMapping("/benefits/gift")
     public ResponseEntity<?> createGiftDeposit(@RequestBody GiftBenefitDto giftBenefitDto) {
         try {
             GiftBenefitDto giftBenefitDtoResult = companyService.distributeGiftBenefit(
@@ -29,14 +29,14 @@ public class GladyController {
                     giftBenefitDto.getUserId(),
                     giftBenefitDto.getAmount());
 
-            return ResponseEntity.ok(giftBenefitDtoResult);
+            return new ResponseEntity<>(giftBenefitDtoResult, HttpStatus.CREATED);
 
         } catch (Exception e) {
             return new ResponseEntity<>("Error on gift benefit creation: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("/meal")
+    @PostMapping("/benefits/meal")
     public ResponseEntity<?> createMealDeposit(@RequestBody MealBenefitDto mealBenefitDto) {
         try {
             MealBenefitDto mealBenefitDtoResult = companyService.distributeMealBenefit(
@@ -44,14 +44,14 @@ public class GladyController {
                     mealBenefitDto.getUserId(),
                     mealBenefitDto.getAmount());
 
-            return ResponseEntity.ok(mealBenefitDtoResult);
+            return new ResponseEntity<>(mealBenefitDtoResult, HttpStatus.CREATED);
 
         } catch (Exception e) {
             return new ResponseEntity<>("Error on meal benefit creation: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/balance/{userId}")
+    @GetMapping("/users/balance/{userId}")
     public ResponseEntity<?> getUserBalance(@PathVariable Long userId) {
         try {
             BigDecimal balance = userService.getUserBenefitBalance(userId);
