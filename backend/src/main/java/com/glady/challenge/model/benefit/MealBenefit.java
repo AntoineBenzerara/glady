@@ -7,7 +7,7 @@ import java.time.Month;
 import java.time.Year;
 
 @Entity
-public class MealBenefit extends Benefit{
+public class MealBenefit extends Benefit {
 
     public LocalDate expireOn() {
         int expireOnYear = this.getEmittedOn().plusYears(1).getYear();

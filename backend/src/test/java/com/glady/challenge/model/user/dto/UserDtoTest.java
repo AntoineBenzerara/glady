@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDtoTest {
 
     @Test
-    void given_a_user_entity_it_should_return_a_dto_with_same_values(){
+    void given_a_user_entity_it_should_return_a_dto_with_same_values() {
         User user = new User();
         user.setId(Long.valueOf(123l));
         List<GiftBenefit> gifts = Arrays.asList(Mockito.mock(GiftBenefit.class));

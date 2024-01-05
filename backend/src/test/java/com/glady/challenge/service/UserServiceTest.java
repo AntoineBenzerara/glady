@@ -5,11 +5,9 @@ import com.glady.challenge.model.benefit.MealBenefit;
 import com.glady.challenge.model.user.User;
 import com.glady.challenge.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -20,7 +18,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -32,12 +30,12 @@ public class UserServiceTest {
     UserService userService;
 
     @BeforeEach
-    void init(){
+    void init() {
         userService = new UserService(userRepository);
     }
 
     @Test
-    void given_a_user_with_only_gifts_it_should_return_a_balance(){
+    void given_a_user_with_only_gifts_it_should_return_a_balance() {
 
         GiftBenefit giftBenefit1 = new GiftBenefit();
         giftBenefit1.setAmount(new BigDecimal(100));
@@ -47,7 +45,7 @@ public class UserServiceTest {
         giftBenefit2.setAmount(new BigDecimal(200));
         giftBenefit2.setEmittedOn(LocalDate.now().minusDays(1));
 
-        List<GiftBenefit> userGiftBenefits = new ArrayList<>(Arrays.asList(giftBenefit1,giftBenefit2));
+        List<GiftBenefit> userGiftBenefits = new ArrayList<>(Arrays.asList(giftBenefit1, giftBenefit2));
 
         User user = new User();
         user.setGiftBenefits(userGiftBenefits);
@@ -58,7 +56,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void given_a_user_with_only_meals_it_should_return_a_balance(){
+    void given_a_user_with_only_meals_it_should_return_a_balance() {
         MealBenefit mealBenefit1 = new MealBenefit();
         mealBenefit1.setAmount(new BigDecimal(300));
         mealBenefit1.setEmittedOn(LocalDate.now().minusDays(1));
@@ -68,7 +66,7 @@ public class UserServiceTest {
         mealBenefit2.setAmount(new BigDecimal(400));
         mealBenefit2.setEmittedOn(LocalDate.now().minusDays(1));
 
-        List<MealBenefit> userMealBenefits = new ArrayList<>(Arrays.asList(mealBenefit1,mealBenefit2));
+        List<MealBenefit> userMealBenefits = new ArrayList<>(Arrays.asList(mealBenefit1, mealBenefit2));
 
         User user = new User();
         user.setMealBenefits(userMealBenefits);
@@ -78,7 +76,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void given_a_user_with_gifts_and_meals_benefits_should_return_sum_of_both_benefits(){
+    void given_a_user_with_gifts_and_meals_benefits_should_return_sum_of_both_benefits() {
         GiftBenefit giftBenefit1 = new GiftBenefit();
         giftBenefit1.setAmount(new BigDecimal(100));
         giftBenefit1.setEmittedOn(LocalDate.now().minusDays(1));
@@ -94,8 +92,8 @@ public class UserServiceTest {
         mealBenefit2.setEmittedOn(LocalDate.now().minusDays(1));
 
 
-        List<GiftBenefit> userGiftBenefits = new ArrayList<>(Arrays.asList(giftBenefit1,giftBenefit2));
-        List<MealBenefit> userMealBenefits = new ArrayList<>(Arrays.asList(mealBenefit1,mealBenefit2));
+        List<GiftBenefit> userGiftBenefits = new ArrayList<>(Arrays.asList(giftBenefit1, giftBenefit2));
+        List<MealBenefit> userMealBenefits = new ArrayList<>(Arrays.asList(mealBenefit1, mealBenefit2));
 
         User user = new User();
         user.setMealBenefits(userMealBenefits);

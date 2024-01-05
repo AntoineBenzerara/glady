@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
 @Service
 public class UserService {
 
@@ -33,6 +34,7 @@ public class UserService {
 
     /**
      * Return current balance of both meal and gift benefits. Only gifts that are valid are summed
+     *
      * @param userId
      * @return current user balance
      */

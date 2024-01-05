@@ -3,6 +3,7 @@ package com.glady.challenge.model.benefit;
 import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
+
 @Entity
 public class GiftBenefit extends Benefit {
 

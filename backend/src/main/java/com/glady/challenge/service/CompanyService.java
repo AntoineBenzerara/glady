@@ -37,17 +37,17 @@ public class CompanyService {
         this.giftBenefitRepository = giftBenefitRepository;
     }
 
-    public MealBenefitDto distributeMealBenefit(Long companyId, Long userId, BigDecimal amount){
-        return MealBenefitDto.ofMealBenefit((MealBenefit) distributeBenefit(companyId,userId,amount, MealBenefit.class));
+    public MealBenefitDto distributeMealBenefit(Long companyId, Long userId, BigDecimal amount) {
+        return MealBenefitDto.ofMealBenefit((MealBenefit) distributeBenefit(companyId, userId, amount, MealBenefit.class));
     }
 
-    public GiftBenefitDto distributeGiftBenefit(Long companyId, Long userId, BigDecimal amount){
-        return GiftBenefitDto.ofGiftBenefit((GiftBenefit) distributeBenefit(companyId,userId,amount, GiftBenefit.class));
+    public GiftBenefitDto distributeGiftBenefit(Long companyId, Long userId, BigDecimal amount) {
+        return GiftBenefitDto.ofGiftBenefit((GiftBenefit) distributeBenefit(companyId, userId, amount, GiftBenefit.class));
     }
 
 
     @Transactional
-    public Benefit distributeBenefit(Long companyId, Long userId, BigDecimal amount, Class benefitClass ) {
+    public Benefit distributeBenefit(Long companyId, Long userId, BigDecimal amount, Class benefitClass) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new RuntimeException("Amount should be > 0");
         }
@@ -63,13 +63,13 @@ public class CompanyService {
         //Instantiating new benefit depending on which class type it is
         Benefit benefit;
         JpaRepository benefitRepository;
-        if( benefitClass == MealBenefit.class) {
+        if (benefitClass == MealBenefit.class) {
             benefit = new MealBenefit();
             benefitRepository = mealBenefitRepository;
         } else if (benefitClass == GiftBenefit.class) {
             benefit = new GiftBenefit();
             benefitRepository = giftBenefitRepository;
-        }else {
+        } else {
             throw new RuntimeException("This benefit is not yet supported");
         }
 
@@ -85,7 +85,6 @@ public class CompanyService {
         return (Benefit) benefitRepository.save(benefit);
 
     }
-
 
 
 }

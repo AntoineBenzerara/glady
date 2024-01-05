@@ -17,11 +17,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @NoArgsConstructor
-@Table(name = "glady_user" )
+@Table(name = "glady_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

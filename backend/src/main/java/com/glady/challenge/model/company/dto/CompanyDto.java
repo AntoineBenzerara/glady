@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+
 @Builder
 @Getter
 @AllArgsConstructor
@@ -14,7 +15,7 @@ public class CompanyDto {
     private final String name;
     private final BigDecimal balance;
 
-    public static CompanyDto ofCompany(Company company){
+    public static CompanyDto ofCompany(Company company) {
         return CompanyDto.builder()
                 .id(company.getId())
                 .balance(company.getBalance())

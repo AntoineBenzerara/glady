@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+
 @Builder
 @Getter
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class UserDto {
     private final List<GiftBenefit> giftBenefits;
     private final List<MealBenefit> mealBenefits;
 
-    public static UserDto ofUser(User user){
+    public static UserDto ofUser(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .giftBenefits(user.getGiftBenefits())

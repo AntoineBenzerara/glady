@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @NoArgsConstructor
