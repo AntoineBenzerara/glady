@@ -1,0 +1,64 @@
+package com.glady.challenge.controller;
+
+import com.glady.challenge.model.benefit.dto.GiftBenefitDto;
+import com.glady.challenge.model.benefit.dto.MealBenefitDto;
+import com.glady.challenge.service.CompanyService;
+import com.glady.challenge.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+
+@RestController
+@RequestMapping("/glady/api/benefits")
+public class GladyController {
+
+    @Autowired
+    private CompanyService companyService;
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/gift")
+    public ResponseEntity<?> createGiftDeposit(@RequestBody GiftBenefitDto giftBenefitDto) {
+        try {
+            GiftBenefitDto giftBenefitDtoResult = companyService.distributeGiftBenefit(
+                    giftBenefitDto.getCompanyId(),
+                    giftBenefitDto.getUserId(),
+                    giftBenefitDto.getAmount());
+
+            return ResponseEntity.ok(giftBenefitDtoResult);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error on gift benefit creation: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/meal")
+    public ResponseEntity<?> createMealDeposit(@RequestBody MealBenefitDto mealBenefitDto) {
+        try {
+            MealBenefitDto mealBenefitDtoResult = companyService.distributeMealBenefit(
+                    mealBenefitDto.getCompanyId(),
+                    mealBenefitDto.getUserId(),
+                    mealBenefitDto.getAmount());
+
+            return ResponseEntity.ok(mealBenefitDtoResult);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error on meal benefit creation: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/balance/{userId}")
+    public ResponseEntity<?> getUserBalance(@PathVariable Long userId) {
+        try {
+            BigDecimal balance = userService.getUserBenefitBalance(userId);
+            return ResponseEntity.ok(balance);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error on meal benefit creation: " + e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+}
