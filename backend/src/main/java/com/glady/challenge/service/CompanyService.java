@@ -76,6 +76,7 @@ public class CompanyService {
         benefit.setAmount(amount);
         benefit.setEmittedOn(LocalDate.now());
         benefit.setUser(user);
+        benefit.setCompany(company);
 
         //Reducing balance for company
         company.setBalance(company.getBalance().subtract(amount));

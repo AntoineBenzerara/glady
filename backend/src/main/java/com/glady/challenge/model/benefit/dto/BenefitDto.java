@@ -14,6 +14,7 @@ public abstract class BenefitDto {
     private final Long id;
     private final BigDecimal amount;
     private final LocalDate emittedOn;
-    private final User user;
+    private final Long userId;
+    private final Long companyId;
     private final LocalDate expireOn;
 }

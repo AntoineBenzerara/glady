@@ -10,8 +10,8 @@ import java.time.LocalDate;
 public class GiftBenefitDto extends BenefitDto {
 
     @Builder
-    public GiftBenefitDto(Long id, BigDecimal amount, LocalDate emittedAt, User user, LocalDate expireAt) {
-        super(id, amount, emittedAt, user, expireAt);
+    public GiftBenefitDto(Long id, BigDecimal amount, LocalDate emittedAt, Long userId, LocalDate expireAt, Long companyId) {
+        super(id, amount, emittedAt, userId, companyId, expireAt);
     }
 
     public static GiftBenefitDto ofGiftBenefit(GiftBenefit giftBenefit) {
@@ -19,8 +19,9 @@ public class GiftBenefitDto extends BenefitDto {
                 .id(giftBenefit.getId())
                 .amount(giftBenefit.getAmount())
                 .emittedAt(giftBenefit.getEmittedOn())
-                .user(giftBenefit.getUser())
+                .userId(giftBenefit.getUser().getId())
                 .expireAt(giftBenefit.expireOn())
+                .companyId(giftBenefit.getCompany().getId())
                 .build();
     }
 

@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public class MealBenefitDto extends BenefitDto {
 
     @Builder
-    public MealBenefitDto(Long id, BigDecimal amount, LocalDate emittedOn, User user, LocalDate expireOn) {
-        super(id, amount, emittedOn, user, expireOn);
+    public MealBenefitDto(Long id, BigDecimal amount, LocalDate emittedOn, Long userId, LocalDate expireOn, Long companyId) {
+        super(id, amount, emittedOn, userId, companyId, expireOn);
     }
 
     public static MealBenefitDto ofMealBenefit(MealBenefit mealBenefit) {
@@ -21,8 +21,9 @@ public class MealBenefitDto extends BenefitDto {
                 .id(mealBenefit.getId())
                 .amount(mealBenefit.getAmount())
                 .emittedOn(mealBenefit.getEmittedOn())
-                .user(mealBenefit.getUser())
+                .userId(mealBenefit.getUser().getId())
                 .expireOn(mealBenefit.expireOn())
+                .companyId(mealBenefit.getCompany().getId())
                 .build();
     }
 }

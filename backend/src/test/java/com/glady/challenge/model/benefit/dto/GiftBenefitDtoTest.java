@@ -1,6 +1,7 @@
 package com.glady.challenge.model.benefit.dto;
 
 import com.glady.challenge.model.benefit.GiftBenefit;
+import com.glady.challenge.model.company.Company;
 import com.glady.challenge.model.user.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,15 +17,21 @@ public class GiftBenefitDtoTest {
         GiftBenefit gift = new GiftBenefit();
         gift.setId(Long.valueOf(123l));
         gift.setAmount(BigDecimal.TEN);
-        User user = Mockito.mock(User.class);
+        User user = new User();
+        user.setId(1l);
         gift.setUser(user);
         LocalDate now = LocalDate.now();
         gift.setEmittedOn(now);
+        Company company = Mockito.mock(Company.class);
+        company.setId(1l);
+        gift.setCompany(company);
+
 
         GiftBenefitDto giftBenefitDto = GiftBenefitDto.ofGiftBenefit(gift);
         Assertions.assertEquals(gift.getId(), giftBenefitDto.getId());
         Assertions.assertEquals(gift.getAmount(), giftBenefitDto.getAmount());
         Assertions.assertEquals(gift.getEmittedOn(), giftBenefitDto.getEmittedOn());
-        Assertions.assertEquals(gift.getUser(), giftBenefitDto.getUser());
+        Assertions.assertEquals(gift.getUser().getId(), giftBenefitDto.getUserId());
+        Assertions.assertEquals(gift.getCompany().getId(), giftBenefitDto.getCompanyId());
     }
 }

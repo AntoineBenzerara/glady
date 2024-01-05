@@ -1,6 +1,7 @@
 package com.glady.challenge.model.benefit;
 
 
+import com.glady.challenge.model.company.Company;
 import com.glady.challenge.model.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
@@ -36,5 +37,9 @@ public abstract class Benefit {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
 }
