@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -52,7 +54,7 @@ public class UserServiceTest {
         userRepository.save(user);
 
 
-        Assertions.assertEquals(new BigDecimal(300), userService.getUserBenefitBalance(1l));
+        assertEquals(new BigDecimal(300), userService.getUserBenefitBalance(1l));
     }
 
     @Test
@@ -72,7 +74,7 @@ public class UserServiceTest {
         user.setMealBenefits(userMealBenefits);
         userRepository.save(user);
 
-        Assertions.assertEquals(new BigDecimal(700), userService.getUserBenefitBalance(1l));
+        assertEquals(new BigDecimal(700), userService.getUserBenefitBalance(1l));
     }
 
     @Test
@@ -101,6 +103,6 @@ public class UserServiceTest {
         userRepository.save(user);
         System.out.println(userRepository.findAll());
 
-        Assertions.assertEquals(new BigDecimal(1000), userService.getUserBenefitBalance(1l));
+        assertEquals(new BigDecimal(1000), userService.getUserBenefitBalance(1l));
     }
 }

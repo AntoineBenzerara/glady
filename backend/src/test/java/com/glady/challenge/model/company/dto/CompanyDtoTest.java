@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class CompanyDtoTest {
 
     @Test
@@ -16,8 +18,8 @@ public class CompanyDtoTest {
         company.setBalance(BigDecimal.TEN);
 
         CompanyDto companyDto = CompanyDto.ofCompany(company);
-        Assertions.assertEquals(company.getId(), companyDto.getId());
-        Assertions.assertEquals(company.getName(), companyDto.getName());
-        Assertions.assertEquals(company.getBalance(), companyDto.getBalance());
+        assertEquals(company.getId(), companyDto.getId());
+        assertEquals(company.getName(), companyDto.getName());
+        assertEquals(company.getBalance(), companyDto.getBalance());
     }
 }
